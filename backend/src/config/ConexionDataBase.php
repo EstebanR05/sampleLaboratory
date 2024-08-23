@@ -1,22 +1,21 @@
 <?php
-class ConexionDataBase {
+class ConexionDataBase
+{
     private $host = 'localhost';
-    private $db_name = 'samplelaboratory';
     private $username = 'root';
     private $password = '';
-    public $conn;
+    private $db_name = 'samplelaboratory';
 
-    public function conectar() {
-        $this->conn = null;
+    public function conectar()
+    {
+        $hostDB = "mysql:host=" . $this->host . ";dbname=" . $this->db_name . ";";
 
         try {
-            $this->conn = new PDO("mysql:host={$this->host};dbname={$this->db_name}", $this->username, $this->password);
-            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch(PDOException $exception) {
+            $conexion = new PDO($hostDB, $this->username, $this->password);
+            $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            return $conexion;
+        } catch (PDOException $exception) {
             echo "Error de conexión: " . $exception->getMessage();
         }
-
-        return $this->conn;
     }
 }
-?>
