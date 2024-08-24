@@ -25,7 +25,8 @@ class Patients
         echo json_encode($patients);
     }
 
-    public static function getByIdPatient($PatientID) {
+    public static function getByIdPatient($PatientID)
+    {
         self::initialize();
         $conn = self::$handleMessages->hanldeConexion();
         $str = $conn->prepare('SELECT * FROM patients WHERE PatientID = :PatientID');
@@ -50,11 +51,22 @@ class Patients
         echo json_encode(['message' => 'Creado correctamente']);
     }
 
-    public static function updatePatients($PatientID, $Name, $BirthDate, $Address) {
+    public static function updatePatients($PatientID, $Name, $BirthDate, $Address)
+    {
+        self::initialize();
+        $conn = self::$handleMessages->hanldeConexion();
+        $str = $conn->prepare('UPDATE patients SET Name = :Name, BirthDate = :BirthDate, Address = :Address WHERE PatientID = :PatientID');
+        $str->bindParam(':Name', $Name);
+        $str->bindParam(':BirthDate', $BirthDate);
+        $str->bindParam(':Address', $Address);
+        $str->bindParam(':PatientID', $PatientID);
 
+        self::$handleMessages->hanldeResponse($str->execute());
+        echo json_encode(['message' => 'Actualizado correctamente']);
     }
 
-    public static function deletePatients($PatientID) {
+    public static function deletePatients($PatientID)
+    {
         self::initialize();
         $conn = self::$handleMessages->hanldeConexion();
         $str = $conn->prepare('DELETE FROM patients WHERE PatientID = :PatientID');
