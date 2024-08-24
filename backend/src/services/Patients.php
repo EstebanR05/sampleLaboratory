@@ -25,7 +25,17 @@ class Patients
         echo json_encode($patients);
     }
 
-    public static function getByIdPatient($PatientID) {}
+    public static function getByIdPatient($PatientID) {
+        self::initialize();
+        $conn = self::$handleMessages->hanldeConexion();
+        $str = $conn->prepare('SELECT * FROM patients WHERE PatientID = :PatientID');
+        $str->bindParam(':PatientID', $PatientID);
+        $str->execute();
+
+        $patients = $str->fetch(PDO::FETCH_ASSOC);
+        self::$handleMessages->hanldeResponse($patients);
+        echo json_encode($patients);
+    }
 
     public static function createPatients($Name, $BirthDate, $Address)
     {

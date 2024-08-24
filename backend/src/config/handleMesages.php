@@ -20,6 +20,6 @@ class handleMesages
     public static function hanldeConexion()
     {
         $database = new ConexionDataBase();
-        return $conn = $database->conectar();
+        return $database->conectar();
     }
 }

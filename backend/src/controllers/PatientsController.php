@@ -10,7 +10,13 @@ class PatientsController
         Patients::getAllPatients();
     }
 
-    public function handleGetByIdPatients($id) {}
+    public function handleGetByIdPatients($id) {
+        if (!isset($id)) {
+            http_response_code(400);
+        }
+
+        Patients::getByIdPatient($id);
+    }
 
     public function handleCreatePatients($name, $birthDate, $address)
     {
@@ -31,8 +37,8 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
-        if (isset($data['id'])) {
-            $controller->handleGetByIdPatients($data['id']);
+        if (isset($_GET['id'])) {
+            $controller->handleGetByIdPatients($_GET['id']);
         } else {
             $controller->handleGetAllPatients();
         }
