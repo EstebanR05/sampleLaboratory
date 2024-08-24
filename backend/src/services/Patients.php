@@ -1,37 +1,46 @@
 <?php
 
-require_once '../config/ConexionDataBase.php';
+require_once '../config/handleMesages.php';
 
 class Patients
 {
-    public  function __construct() {}
+    private static $handleMessages;
 
-    public function getPatients() {}
+    public function __construct() {}
 
-    public function getPatient($PatientID) {}
+    public static function initialize()
+    {
+        self::$handleMessages = new handleMesages();
+    }
+
+    public static function getAllPatients()
+    {
+        self::initialize();
+        $conn = self::$handleMessages->hanldeConexion();
+        $str = $conn->prepare('SELECT * FROM patients');
+        $str->execute();
+
+        $patients = $str->fetchAll(PDO::FETCH_ASSOC);
+        self::$handleMessages->hanldeResponse($patients);
+        echo json_encode($patients);
+    }
+
+    public static function getByIdPatient($PatientID) {}
 
     public static function createPatients($Name, $BirthDate, $Address)
     {
-        $conn = self::hanldeConexion();
+        self::initialize();
+        $conn = self::$handleMessages->hanldeConexion();
         $str = $conn->prepare('INSERT INTO patients (`PatientID`, `Name`, `BirthDate`, `Address`) VALUES (NULL, :Name, :BirthDate, :Address)');
         $str->bindParam(':Name', $Name);
         $str->bindParam(':BirthDate', $BirthDate);
         $str->bindParam(':Address', $Address);
-        self::hanldeResponse($str->execute());
+
+        self::$handleMessages->hanldeResponse($str->execute());
+        echo json_encode(['message' => 'Creado correctamente']);
     }
 
-    public function updatePatients($PatientID, $Name, $BirthDate, $Address) {}
+    public static function updatePatients($PatientID, $Name, $BirthDate, $Address) {}
 
-    public function deletePatients($PatientID) {}
-
-    private static function hanldeResponse($resp)
-    {
-        $resp ? header('HTTP/1.1 201 creado correctamente') : header('HTTP/1.1 404 No se pudo crear correctamente');
-    }
-
-    private static function hanldeConexion()
-    {
-        $database = new ConexionDataBase();
-        return $conn = $database->conectar();
-    }
+    public static function deletePatients($PatientID) {}
 }

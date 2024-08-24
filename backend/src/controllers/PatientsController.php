@@ -6,33 +6,48 @@ class PatientsController
 {
     public function __construct() {}
 
-    public function handleCreatePatients()
-    {
-        $data = json_decode(file_get_contents('php://input'), true);
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($data['name']) && isset($data['birthDate']) && isset($data['address'])) {
-            Patients::createPatients($data['name'], $data['birthDate'], $data['address']);
-        }
+    public function handleGetAllPatients() {
+        Patients::getAllPatients();
     }
+
+    public function handleGetByIdPatients($id) {}
+
+    public function handleCreatePatients($name, $birthDate, $address)
+    {
+        if (!isset($name) && !isset($birthDate) && !isset($address)) {
+            http_response_code(400);
+        }
+
+        Patients::createPatients($name, $birthDate, $address);
+    }
+
+    public function handleUpdatePatients($id) {}
+
+    public function handleDeletePatients($id) {}
 }
 
 $controller = new PatientsController();
+$data = json_decode(file_get_contents('php://input'), true);
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
-        # code...
+        if (isset($data['id'])) {
+            $controller->handleGetByIdPatients($data['id']);
+        } else {
+            $controller->handleGetAllPatients();
+        }
         break;
     case 'POST':
-        $controller->handleCreatePatients();
+        $controller->handleCreatePatients($data['name'], $data['birthDate'], $data['address']);
         break;
     case 'PUT':
-        # code...
+        $controller->handleUpdatePatients($data['id']);
         break;
     case 'DELETE':
-        # code...
+        $controller->handleDeletePatients($data['id']);
         break;
     default:
-        http_response_code(405); // Método no permitido
+        http_response_code(405);
         echo json_encode(['error' => 'Método no permitido']);
         break;
 }
