@@ -6,11 +6,13 @@ class PatientsController
 {
     public function __construct() {}
 
-    public function handleGetAllPatients() {
+    public function handleGetAllPatients()
+    {
         Patients::getAllPatients();
     }
 
-    public function handleGetByIdPatients($id) {
+    public function handleGetByIdPatients($id)
+    {
         if (!isset($id)) {
             http_response_code(400);
         }
@@ -27,9 +29,21 @@ class PatientsController
         Patients::createPatients($name, $birthDate, $address);
     }
 
-    public function handleUpdatePatients($id) {}
+    public function handleUpdatePatients($id, $name, $birthDate, $address) {
+        if (!isset($id) && !isset($name) && !isset($birthDate) && !isset($address)) {
+            http_response_code(400);
+        }
 
-    public function handleDeletePatients($id) {}
+        Patients::updatePatients($id, $name, $birthDate, $address);
+    }
+
+    public function handleDeletePatients($id) {
+        if (!isset($id)) {
+            http_response_code(400);
+        }
+
+        Patients::deletePatients($id);
+    }
 }
 
 $controller = new PatientsController();
@@ -47,13 +61,13 @@ switch ($_SERVER['REQUEST_METHOD']) {
         $controller->handleCreatePatients($data['name'], $data['birthDate'], $data['address']);
         break;
     case 'PUT':
-        $controller->handleUpdatePatients($data['id']);
+        $controller->handleUpdatePatients($_GET['id'], $data['name'], $data['birthDate'], $data['address']);
         break;
     case 'DELETE':
-        $controller->handleDeletePatients($data['id']);
+        $controller->handleDeletePatients($_GET['id']);
         break;
     default:
         http_response_code(405);
-        echo json_encode(['error' => 'Método no permitido']);
+        echo json_encode(['error' => 'Metodo no permitido']);
         break;
 }

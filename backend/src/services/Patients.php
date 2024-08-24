@@ -50,7 +50,16 @@ class Patients
         echo json_encode(['message' => 'Creado correctamente']);
     }
 
-    public static function updatePatients($PatientID, $Name, $BirthDate, $Address) {}
+    public static function updatePatients($PatientID, $Name, $BirthDate, $Address) {
 
-    public static function deletePatients($PatientID) {}
+    }
+
+    public static function deletePatients($PatientID) {
+        self::initialize();
+        $conn = self::$handleMessages->hanldeConexion();
+        $str = $conn->prepare('DELETE FROM patients WHERE PatientID = :PatientID');
+        $str->bindParam(':PatientID', $PatientID);
+        self::$handleMessages->hanldeResponse($str->execute());
+        echo json_encode(['message' => 'Eliminado correctamente']);
+    }
 }
