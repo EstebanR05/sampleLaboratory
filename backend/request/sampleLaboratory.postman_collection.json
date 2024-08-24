@@ -1,0 +1,173 @@
+{
+	"info": {
+		"_postman_id": "abd1fc68-143b-4efa-b300-04df7cb6c8c6",
+		"name": "sampleLaboratory",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21163207"
+	},
+	"item": [
+		{
+			"name": "Patients",
+			"item": [
+				{
+					"name": "createPatients",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"jimmy2\",\r\n    \"birthDate\": \"2024-09-03\",\r\n    \"address\": \"carrera 18 #16-17\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/sampleLaboratory/backend/src/controllers/PatientsController.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"sampleLaboratory",
+								"backend",
+								"src",
+								"controllers",
+								"PatientsController.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllPatients",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/sampleLaboratory/backend/src/controllers/PatientsController.php",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"sampleLaboratory",
+								"backend",
+								"src",
+								"controllers",
+								"PatientsController.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByIdPatients",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/sampleLaboratory/backend/src/controllers/PatientsController.php?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"sampleLaboratory",
+								"backend",
+								"src",
+								"controllers",
+								"PatientsController.php"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletePatients",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/sampleLaboratory/backend/src/controllers/PatientsController.php?id=8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"sampleLaboratory",
+								"backend",
+								"src",
+								"controllers",
+								"PatientsController.php"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatepatients",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"esteban22\",\r\n    \"birthDate\": \"2024-09-03\",\r\n    \"address\": \"carrera 18 #16-17\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/sampleLaboratory/backend/src/controllers/PatientsController.php?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"sampleLaboratory",
+								"backend",
+								"src",
+								"controllers",
+								"PatientsController.php"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
