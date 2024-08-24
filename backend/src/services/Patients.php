@@ -1,6 +1,6 @@
 <?php
 
-require_once '../config/ConexionDataBase.class.php';
+require_once '../config/ConexionDataBase.php';
 
 class Patients
 {
@@ -24,12 +24,12 @@ class Patients
 
     public function deletePatients($PatientID) {}
 
-    private function hanldeResponse($resp)
+    private static function hanldeResponse($resp)
     {
         $resp ? header('HTTP/1.1 201 creado correctamente') : header('HTTP/1.1 404 No se pudo crear correctamente');
     }
 
-    private function hanldeConexion()
+    private static function hanldeConexion()
     {
         $database = new ConexionDataBase();
         return $conn = $database->conectar();

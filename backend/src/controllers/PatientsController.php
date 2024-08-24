@@ -1,7 +1,9 @@
 <?php
 
-require_once '../services/Patients.class.php';
+require_once '../services/patients.php';
 
-if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['name']) && isset($_GET['birthDate']) && isset($_GET['address'])){
-    Patients::createPatients($_GET['name'], $_GET['birthDate'], $_GET['address']);
+$data = json_decode(file_get_contents('php://input'), true);
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($data['name']) && isset($data['birthDate']) && isset($data['address'])) {
+    Patients::createPatients($data['name'], $data['birthDate'], $data['address']);
 }
