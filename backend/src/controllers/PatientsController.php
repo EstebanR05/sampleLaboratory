@@ -1,14 +1,12 @@
 <?php
 
-require_once '../services/patients.php';
+require_once '../services/PatientsService.php';
 
 class PatientsController
 {
-    public function __construct() {}
-
     public function handleGetAllPatients()
     {
-        Patients::getAllPatients();
+        PatientsService::getAllPatients();
     }
 
     public function handleGetByIdPatients($id)
@@ -17,7 +15,7 @@ class PatientsController
             http_response_code(400);
         }
 
-        Patients::getByIdPatient($id);
+        PatientsService::getByIdPatient($id);
     }
 
     public function handleCreatePatients($name, $birthDate, $address)
@@ -26,7 +24,7 @@ class PatientsController
             http_response_code(400);
         }
 
-        Patients::createPatients($name, $birthDate, $address);
+        PatientsService::createPatients($name, $birthDate, $address);
     }
 
     public function handleUpdatePatients($id, $name, $birthDate, $address) {
@@ -34,7 +32,7 @@ class PatientsController
             http_response_code(400);
         }
 
-        Patients::updatePatients($id, $name, $birthDate, $address);
+        PatientsService::updatePatients($id, $name, $birthDate, $address);
     }
 
     public function handleDeletePatients($id) {
@@ -42,7 +40,7 @@ class PatientsController
             http_response_code(400);
         }
 
-        Patients::deletePatients($id);
+        PatientsService::deletePatients($id);
     }
 }
 

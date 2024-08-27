@@ -2,11 +2,9 @@
 
 require_once '../config/handleMesages.php';
 
-class Patients
+class PatientsService
 {
     private static $handleMessages;
-
-    public function __construct() {}
 
     public static function initialize()
     {
